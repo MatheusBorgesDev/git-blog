@@ -8,7 +8,7 @@ import App from "./pages/App.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <div className="min-h-screen bg-black antialiased">
+    <div className="min-h-screen bg-baseBackground antialiased">
       <Header />
       <App />
     </div>
