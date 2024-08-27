@@ -1,7 +1,7 @@
 import { PostCard } from "../components/post-card";
 import { Profile } from "../components/profile";
 
-export default function App() {
+export function Home() {
   return (
     <main className="mx-auto flex w-[54rem] flex-col justify-center">
       <Profile />
