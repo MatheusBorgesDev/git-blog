@@ -1,5 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 
+import { axiosGitHub } from "../lib/axios";
+
 export interface GitHubProfile {
   name: string;
   login: string;
@@ -37,28 +39,25 @@ export function GitHubDataProvider({ children }: GitHubDataProviderProps) {
   );
 
   async function fetchGitHubProfile() {
-    const response = await fetch(`https://api.github.com/users/${gitHubUser}`);
-    const data = await response.json();
+    const response = await axiosGitHub.get(`/users/${gitHubUser}`);
 
-    setGithubProfile(data);
+    setGithubProfile(response.data);
   }
 
   async function fetchGitHubRepoIssues(repo: string, text?: string) {
     if (text === undefined || text === "") {
-      const response = await fetch(
-        `https://api.github.com/repos/${gitHubUser}/${repo}/issues`,
+      const response = await axiosGitHub.get(
+        `/repos/${gitHubUser}/${repo}/issues`,
       );
-      const data = await response.json();
 
-      setGithubRepoIssues(data);
+      setGithubRepoIssues(response.data);
       return;
     } else {
-      const response = await fetch(
-        `https://api.github.com/search/issues?q=${text}%20repo:${gitHubUser}/${repo}`,
+      const response = await axiosGitHub.get(
+        `/search/issues?q=${text}%20repo:${gitHubUser}/${repo}`,
       );
-      const data = await response.json();
 
-      setGithubRepoIssues(data.items);
+      setGithubRepoIssues(response.data.items);
       return;
     }
   }
