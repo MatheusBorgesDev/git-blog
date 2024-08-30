@@ -5,16 +5,14 @@ import {
   FaUserFriends,
 } from "react-icons/fa";
 
+import { TextLink } from "./text-link";
+
 export function Profile() {
   return (
     <div className="relative -mt-24 flex min-h-56 w-full items-center justify-between gap-8 rounded-xl bg-baseProfile px-10 py-8 shadow-lg">
-      <a
-        href="https://github.com/MatheusBorgesDev"
-        target="_blank"
-        className="absolute right-10 top-8 flex items-center gap-2 text-sm text-blue hover:border-b hover:border-blue"
-      >
-        GITHUB <FaExternalLinkAlt size={12} />
-      </a>
+      <TextLink className="absolute right-10 top-8">
+        GITHUB <FaExternalLinkAlt />
+      </TextLink>
 
       <img
         src="https://github.com/MatheusBorgesDev.png"

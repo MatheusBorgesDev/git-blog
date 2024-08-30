@@ -6,21 +6,19 @@ import {
   FaGithub,
 } from "react-icons/fa";
 
+import { TextLink } from "../../../components/text-link";
+
 export function PostProfile() {
   return (
     <div className="-mt-24 flex w-full flex-col gap-5 rounded-xl bg-baseProfile px-10 py-8 text-blue shadow-lg">
       <div className="flex w-full items-center justify-between">
-        <a href="/" className="flex items-center gap-2 text-sm uppercase">
+        <TextLink href="/">
           <FaChevronLeft size={12} /> Voltar
-        </a>
+        </TextLink>
 
-        <a
-          href="https://github.com/MatheusBorgesDev"
-          target="_blank"
-          className="flex items-center gap-2 text-sm uppercase text-blue hover:border-b hover:border-blue"
-        >
+        <TextLink href="https://github.com/MatheusBorgesDev" target="_blank">
           Ver no GitHub <FaExternalLinkAlt size={12} />
-        </a>
+        </TextLink>
       </div>
 
       <div>

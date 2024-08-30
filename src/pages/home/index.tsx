@@ -1,5 +1,5 @@
-import { PostCard } from "../components/post-card";
-import { Profile } from "../components/profile";
+import { PostCard } from "../../components/post-card";
+import { Profile } from "../../components/profile";
 
 export function Home() {
   return (
