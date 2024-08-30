@@ -18,6 +18,7 @@ export interface GitHubDataContextType {
   gitHubProfile?: GitHubProfile;
   gitHubRepoIssues?: GitHubRepoIssue[];
   issuesAmount?: number;
+  fetchGitHubRepoIssues: (repo: string, text?: string) => Promise<void>;
 }
 
 interface GitHubDataProviderProps {
@@ -25,7 +26,6 @@ interface GitHubDataProviderProps {
 }
 
 const gitHubUser = "MatheusBorgesDev";
-
 const repo = "git-blog";
 
 export const GitHubDataContext = createContext({} as GitHubDataContextType);
@@ -43,13 +43,24 @@ export function GitHubDataProvider({ children }: GitHubDataProviderProps) {
     setGithubProfile(data);
   }
 
-  async function fetchGitHubRepoIssues(repo: string) {
-    const response = await fetch(
-      `https://api.github.com/repos/${gitHubUser}/${repo}/issues`,
-    );
-    const data = await response.json();
+  async function fetchGitHubRepoIssues(repo: string, text?: string) {
+    if (text === undefined || text === "") {
+      const response = await fetch(
+        `https://api.github.com/repos/${gitHubUser}/${repo}/issues`,
+      );
+      const data = await response.json();
 
-    setGithubRepoIssues(data);
+      setGithubRepoIssues(data);
+      return;
+    } else {
+      const response = await fetch(
+        `https://api.github.com/search/issues?q=${text}%20repo:${gitHubUser}/${repo}`,
+      );
+      const data = await response.json();
+
+      setGithubRepoIssues(data.items);
+      return;
+    }
   }
 
   const issuesAmount = gitHubRepoIssues?.length;
@@ -61,7 +72,12 @@ export function GitHubDataProvider({ children }: GitHubDataProviderProps) {
 
   return (
     <GitHubDataContext.Provider
-      value={{ gitHubProfile, gitHubRepoIssues, issuesAmount }}
+      value={{
+        gitHubProfile,
+        gitHubRepoIssues,
+        issuesAmount,
+        fetchGitHubRepoIssues,
+      }}
     >
       {children}
     </GitHubDataContext.Provider>
