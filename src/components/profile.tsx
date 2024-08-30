@@ -5,6 +5,7 @@ import {
   FaUserFriends,
 } from "react-icons/fa";
 
+import { ProfileInfo } from "./profile-info";
 import { TextLink } from "./text-link";
 
 export function Profile() {
@@ -32,20 +33,17 @@ export function Profile() {
         </div>
 
         <div className="flex gap-6">
-          <div className="flex items-center gap-2 text-baseSubtitle">
-            <FaGithub size={18} className="text-baseLabel" />
+          <ProfileInfo icon={FaGithub}>
             <span>MatheusBorgesDev</span>
-          </div>
+          </ProfileInfo>
 
-          <div className="flex items-center gap-2 text-baseSubtitle">
-            <FaBuilding size={18} className="text-baseLabel" />
+          <ProfileInfo icon={FaBuilding}>
             <span>Fig Digital</span>
-          </div>
+          </ProfileInfo>
 
-          <div className="flex items-center gap-2 text-baseSubtitle">
-            <FaUserFriends size={18} className="text-baseLabel" />
+          <ProfileInfo icon={FaUserFriends}>
             <span>7 Seguidores</span>
-          </div>
+          </ProfileInfo>
         </div>
       </div>
     </div>

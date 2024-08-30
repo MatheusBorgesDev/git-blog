@@ -6,6 +6,7 @@ import {
   FaGithub,
 } from "react-icons/fa";
 
+import { ProfileInfo } from "../../../components/profile-info";
 import { TextLink } from "../../../components/text-link";
 
 export function PostProfile() {
@@ -28,20 +29,17 @@ export function PostProfile() {
           </h1>
 
           <div className="flex gap-6">
-            <div className="flex items-center gap-2 text-baseSubtitle">
-              <FaGithub size={18} className="text-baseLabel" />
-              <span>MatheusBorgesDev</span>
-            </div>
+            <ProfileInfo icon={FaGithub}>
+              <span>MatheusBorgesDec</span>
+            </ProfileInfo>
 
-            <div className="flex items-center gap-2 text-baseSubtitle">
-              <FaCalendarDay size={18} className="text-baseLabel" />
+            <ProfileInfo icon={FaCalendarDay}>
               <span>Há 1 dia</span>
-            </div>
+            </ProfileInfo>
 
-            <div className="flex items-center gap-2 text-baseSubtitle">
-              <FaComment size={18} className="text-baseLabel" />
+            <ProfileInfo icon={FaComment}>
               <span>5 Comentários</span>
-            </div>
+            </ProfileInfo>
           </div>
         </div>
       </div>
