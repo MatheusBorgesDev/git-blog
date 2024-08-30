@@ -1,7 +1,17 @@
+import { useContext } from "react";
+
 import { PostCard } from "../../components/post-card";
 import { Profile } from "../../components/profile";
+import { GitHubDataContext } from "../../contexts/github-data";
+import { dateFormatter } from "../../utils/formatter";
 
 export function Home() {
+  const { gitHubRepoIssues, issuesAmount } = useContext(GitHubDataContext);
+
+  if (!gitHubRepoIssues) {
+    return null;
+  }
+
   return (
     <main className="mx-auto flex w-[54rem] flex-col justify-center">
       <Profile />
@@ -10,7 +20,7 @@ export function Home() {
         <div>
           <div className="flex w-full justify-between">
             <h2 className="text-lg font-bold text-baseSubtitle">Publicações</h2>
-            <span className="text-baseSpan">6 publicações</span>
+            <span className="text-baseSpan">{issuesAmount} publicações</span>
           </div>
 
           <form action="">
@@ -23,12 +33,14 @@ export function Home() {
         </div>
 
         <div className="grid grid-cols-2 gap-8">
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
+          {gitHubRepoIssues.map((issue) => (
+            <PostCard
+              key={issue.title}
+              title={issue.title}
+              body={issue.body}
+              createdAt={dateFormatter.format(new Date(issue.created_at))}
+            />
+          ))}
         </div>
       </div>
     </main>

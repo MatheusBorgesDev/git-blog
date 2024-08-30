@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   FaBuilding,
   FaExternalLinkAlt,
@@ -5,10 +6,19 @@ import {
   FaUserFriends,
 } from "react-icons/fa";
 
+import { GitHubDataContext } from "../contexts/github-data";
 import { ProfileInfo } from "./profile-info";
 import { TextLink } from "./text-link";
 
 export function Profile() {
+  const { gitHubProfile } = useContext(GitHubDataContext);
+
+  if (!gitHubProfile) {
+    return null;
+  }
+
+  const { name, login, company, followers, bio } = gitHubProfile;
+
   return (
     <div className="relative -mt-24 flex min-h-56 w-full items-center justify-between gap-8 rounded-xl bg-baseProfile px-10 py-8 shadow-lg">
       <TextLink className="absolute right-10 top-8">
@@ -16,33 +26,30 @@ export function Profile() {
       </TextLink>
 
       <img
-        src="https://github.com/MatheusBorgesDev.png"
+        src={`https://github.com/${login}.png`}
         className="h-40 w-40 rounded-lg"
         alt="Profile picture"
       />
 
       <div className="flex flex-1 flex-col justify-center gap-6">
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-baseTitle">Matheus Borges</h1>
+          <h1 className="text-2xl font-bold text-baseTitle">{name}</h1>
           <p className="text-baseText">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio facere
-            corporis quas cupiditate voluptatibus, fuga unde deserunt! Labore
-            alias unde optio porro nihil nobis maiores quibusdam dolores libero!
-            Commodi, dignissimos.
+            {bio === null ? <span>Desenvolvedor</span> : <span>{bio}</span>}
           </p>
         </div>
 
         <div className="flex gap-6">
           <ProfileInfo icon={FaGithub}>
-            <span>MatheusBorgesDev</span>
+            <span>{login}</span>
           </ProfileInfo>
 
           <ProfileInfo icon={FaBuilding}>
-            <span>Fig Digital</span>
+            {company === null ? <span>Autônomo</span> : <span>{company}</span>}
           </ProfileInfo>
 
           <ProfileInfo icon={FaUserFriends}>
-            <span>7 Seguidores</span>
+            <span>{followers} Seguidores</span>
           </ProfileInfo>
         </div>
       </div>
