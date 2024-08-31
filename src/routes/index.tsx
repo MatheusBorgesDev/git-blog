@@ -8,7 +8,7 @@ export function Routes() {
     <BrowserRouter>
       <RouterRoutes>
         <Route path="/" element={<Home />} />
-        <Route path="/post-details" element={<PostDetails />} />
+        <Route path="/post/:issueNumber" element={<PostDetails />} />
       </RouterRoutes>
     </BrowserRouter>
   );
