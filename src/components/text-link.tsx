@@ -1,15 +1,23 @@
 import { ComponentProps } from "react";
+import { Link } from "react-router-dom";
 
-type TextLinkProps = ComponentProps<"a">;
+interface TextLinkProps extends ComponentProps<"a"> {
+  navigateTo: string;
+}
 
-export function TextLink({ children, className, ...props }: TextLinkProps) {
+export function TextLink({
+  navigateTo,
+  children,
+  className,
+  ...props
+}: TextLinkProps) {
   return (
-    <a
-      href="#"
+    <Link
+      to={navigateTo}
       className={`hover:text-baseAccent flex items-center gap-2 text-sm uppercase text-blue hover:border-b hover:border-blue ${className}`}
       {...props}
     >
       {children}
-    </a>
+    </Link>
   );
 }
