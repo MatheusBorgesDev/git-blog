@@ -6,7 +6,7 @@ import {
   FaUserFriends,
 } from "react-icons/fa";
 
-import { GitHubDataContext } from "../contexts/github-data";
+import { GitHubDataContext, gitHubUser } from "../contexts/github-data";
 import { ProfileInfo } from "./profile-info";
 import { TextLink } from "./text-link";
 
@@ -17,16 +17,20 @@ export function Profile() {
     return null;
   }
 
-  const { name, login, company, followers, bio } = gitHubProfile;
+  const { name, company, followers, bio } = gitHubProfile;
 
   return (
     <div className="relative -mt-24 flex min-h-56 w-full items-center justify-between gap-8 rounded-xl bg-baseProfile px-10 py-8 shadow-lg">
-      <TextLink className="absolute right-10 top-8">
+      <TextLink
+        navigateTo={`https://github.com/${gitHubUser}`}
+        target="_blank"
+        className="absolute right-10 top-8"
+      >
         GITHUB <FaExternalLinkAlt />
       </TextLink>
 
       <img
-        src={`https://github.com/${login}.png`}
+        src={`https://github.com/${gitHubUser}.png`}
         className="h-40 w-40 rounded-lg"
         alt="Profile picture"
       />
@@ -41,7 +45,7 @@ export function Profile() {
 
         <div className="flex gap-6">
           <ProfileInfo icon={FaGithub}>
-            <span>{login}</span>
+            <span>{gitHubUser}</span>
           </ProfileInfo>
 
           <ProfileInfo icon={FaBuilding}>
