@@ -4,7 +4,6 @@ import { axiosGitHub } from "../lib/axios";
 
 export interface GitHubProfile {
   name: string;
-  login: string;
   company: string;
   followers: number;
   bio: string;
@@ -14,6 +13,9 @@ export interface GitHubRepoIssue {
   title: string;
   body: string;
   created_at: string;
+  number: number;
+  html_url: string;
+  comments: number;
 }
 
 export interface GitHubDataContextType {
@@ -27,8 +29,8 @@ interface GitHubDataProviderProps {
   children: ReactNode;
 }
 
-const gitHubUser = "MatheusBorgesDev";
-const repo = "git-blog";
+export const gitHubUser = "MatheusBorgesDev";
+export const repo = "git-blog";
 
 export const GitHubDataContext = createContext({} as GitHubDataContextType);
 
