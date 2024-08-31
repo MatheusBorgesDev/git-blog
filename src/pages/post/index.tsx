@@ -25,7 +25,7 @@ export function PostDetails() {
     fetchIssue();
   }, [issueNumber]);
 
-  console.log(currentIssue);
+  console.log(currentIssue?.body);
 
   return (
     <main className="mx-auto flex w-[54rem] flex-col justify-center">
@@ -39,8 +39,10 @@ export function PostDetails() {
             : ""
         }
       />
-      <div className="px-8 py-10 text-baseText">
-        <ReactMarkDown>{currentIssue?.body}</ReactMarkDown>
+      <div className="px-8 py-10">
+        <ReactMarkDown className="prose prose-headings:text-baseText text-baseText">
+          {currentIssue?.body}
+        </ReactMarkDown>
       </div>
     </main>
   );
