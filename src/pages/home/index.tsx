@@ -1,37 +1,15 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
 
 import { PostCard } from "../../components/post-card";
 import { Profile } from "../../components/profile";
 import { GitHubDataContext } from "../../contexts/github-data";
 import { dateFormatter } from "../../utils/formatter";
-
-const SearchIssuesSchema = z.object({
-  search: z.string(),
-});
-
-type SearchIssuesInput = z.infer<typeof SearchIssuesSchema>;
+import { SearchIssuesForm } from "./form/search-issues-form";
 
 export function Home() {
-  const { gitHubRepoIssues, issuesAmount, fetchGitHubRepoIssues } =
-    useContext(GitHubDataContext);
-
-  const { register, handleSubmit } = useForm<SearchIssuesInput>({
-    resolver: zodResolver(SearchIssuesSchema),
-  });
-
-  if (!gitHubRepoIssues) {
-    return null;
-  }
-
-  function handleSearchIssues(data: SearchIssuesInput) {
-    console.log(data);
-    fetchGitHubRepoIssues("git-blog", data.search);
-  }
+  const { gitHubRepoIssues, issuesAmount } = useContext(GitHubDataContext);
 
   return (
     <main className="mx-auto flex w-[54rem] flex-col justify-center">
@@ -44,23 +22,17 @@ export function Home() {
             <span className="text-baseSpan">{issuesAmount} publicações</span>
           </div>
 
-          <form onSubmit={handleSubmit(handleSearchIssues)}>
-            <input
-              type="text"
-              className="mt-4 w-full rounded-lg border border-baseBorder bg-baseInput p-4 text-baseText placeholder:text-baseLabel"
-              placeholder="Buscar conteúdo"
-              {...register("search")}
-            />
-          </form>
+          <SearchIssuesForm />
         </div>
 
         <div className="grid grid-cols-2 gap-8">
-          {gitHubRepoIssues.map((issue) => (
+          {gitHubRepoIssues?.map((issue) => (
             <PostCard
-              key={issue.title}
+              key={issue.number}
               title={issue.title}
               body={issue.body}
               createdAt={dateFormatter.format(new Date(issue.created_at))}
+              issueNumber={issue.number}
             />
           ))}
         </div>
